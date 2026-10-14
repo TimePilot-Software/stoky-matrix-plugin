@@ -1,0 +1,41 @@
+{
+  "name": "stoky-matrix",
+  "version": "1.0.0",
+  "description": "Research Stoky's temporal market knowledge graph with lossless first-class citations.",
+  "author": {
+    "name": "Stoky",
+    "url": "https://www.stoky.ai"
+  },
+  "homepage": "https://www.stoky.ai",
+  "repository": "https://github.com/TimePilot-Software/stoky-matrix-plugin",
+  "license": "Proprietary",
+  "keywords": [
+    "matrix",
+    "finance",
+    "research",
+    "citations",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stoky Matrix",
+    "shortDescription": "Cited temporal market research from Stoky Matrix",
+    "longDescription": "Connects Codex to Stoky's read-only Matrix knowledge graph by signing in with a Stoky Pro account. Research entities and relationships, inspect point-in-time snapshots and diffs, read the linear event stream, and preserve citation IDs with lossless evidence records.",
+    "developerName": "Stoky",
+    "category": "Finance",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "websiteURL": "https://www.stoky.ai",
+    "privacyPolicyURL": "https://www.stoky.ai/privacy",
+    "termsOfServiceURL": "https://www.stoky.ai/terms",
+    "brandColor": "#17212B",
+    "defaultPrompt": [
+      "Research a company in Matrix and cite every material claim.",
+      "Compare what Matrix knew about a topic on two dates.",
+      "Trace recent events through Matrix and assess the evidence."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

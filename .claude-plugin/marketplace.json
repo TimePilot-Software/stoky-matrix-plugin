@@ -1,0 +1,15 @@
+{
+  "name": "stoky",
+  "description": "Stoky's plugins for Claude.",
+  "owner": {
+    "name": "Stoky",
+    "url": "https://www.stoky.ai"
+  },
+  "plugins": [
+    {
+      "name": "stoky-matrix",
+      "source": "./",
+      "description": "Matrix research with temporal snapshots, event streams, and first-class citations. Sign in with a Stoky Pro account."
+    }
+  ]
+}

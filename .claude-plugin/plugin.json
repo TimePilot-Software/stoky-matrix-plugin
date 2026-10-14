@@ -1,0 +1,12 @@
+{
+  "name": "stoky-matrix",
+  "description": "Matrix research with temporal snapshots, event streams, and first-class citations. Sign in with a Stoky Pro account.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Stoky",
+    "url": "https://www.stoky.ai"
+  },
+  "homepage": "https://www.stoky.ai",
+  "repository": "https://github.com/TimePilot-Software/stoky-matrix-plugin",
+  "license": "Proprietary"
+}

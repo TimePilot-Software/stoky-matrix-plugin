@@ -75,10 +75,10 @@
               "expected_behavior": "get_matrix_snapshot returns NVDA's profile as of the requested date, with the snapshot commit and its timestamp. diff_matrix from that date to HEAD returns the changed fields and the citations added since then. The answer lists the main changes (new results, events and sources) with dates and citations."
             },
             {
-              "description": "Relationship path: explain how two companies are connected.",
-              "prompt": "How is NVIDIA connected to TSMC in Matrix? Show the path and the evidence.",
-              "tools_triggered": "resolve_ticker, find_path",
-              "expected_behavior": "find_path returns status found with the hop-by-hop path (for example NVIDIA -> Broadcom as competitors -> TSMC as supplier), each step with edge types, a short insight and citation IDs. The answer walks through the path and cites the evidence for each link."
+              "description": "Recent changes: show what changed in a company's Matrix profile over the past week, and the sources behind it.",
+              "prompt": "What changed in Apple's Matrix profile in the last week, and what sources support it?",
+              "tools_triggered": "resolve_ticker, get_entity_changelog, read_entity",
+              "expected_behavior": "resolve_ticker maps Apple to entity_id AAPL. get_entity_changelog with a 7-day window returns the dated commits from Matrix's update history, each with a one-line summary, plus the sections and topics that changed (for example competitive_position, earnings, operations). read_entity on those sections returns the updated text with citation IDs that resolve to the original sources (news articles and SEC filings, with publisher, date and URL). The answer lists the main changes by date and cites a source for each."
             }
           ],
           "negative": [

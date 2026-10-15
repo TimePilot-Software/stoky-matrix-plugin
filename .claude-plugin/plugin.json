@@ -1,12 +1,26 @@
 {
   "name": "stoky-matrix",
+  "displayName": "Stoky Matrix",
   "description": "Matrix research with temporal snapshots, event streams, and first-class citations. Sign in with a Stoky Pro account.",
   "version": "1.0.0",
   "author": {
-    "name": "Stoky",
+    "name": "Time Pilot Software Private Limited",
+    "email": "contact@stoky.ai",
     "url": "https://www.stoky.ai"
   },
   "homepage": "https://www.stoky.ai",
   "repository": "https://github.com/TimePilot-Software/stoky-matrix-plugin",
-  "license": "Proprietary"
+  "license": "MIT",
+  "keywords": [
+    "finance",
+    "market-research",
+    "knowledge-graph",
+    "citations",
+    "mcp"
+  ],
+  "icon": "./logo.png",
+  "documentationUrl": "https://connect.stoky.ai/mcp",
+  "supportUrl": "https://www.stoky.ai",
+  "privacyPolicyUrl": "https://www.stoky.ai/privacy",
+  "termsOfServiceUrl": "https://www.stoky.ai/terms"
 }

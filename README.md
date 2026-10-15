@@ -17,15 +17,15 @@ Stoky Matrix is a market knowledge graph built by Stoky. It holds companies, ind
    ```
 
 2. Installing the plugin adds the `stoky-matrix` MCP server and the `matrix-research` skill. The plugin sets the server address, `https://mcp.stoky.ai/mcp`, for you. You do not need to enter it.
-3. The first time Claude uses Stoky Matrix, a browser window opens. Sign in to Stoky with your email, Google or Apple account, then choose Allow.
+3. The first time Claude uses Stoky Matrix, a browser window opens. Sign in to Stoky with your email and password, then choose Allow.
 
 No API key or token needs to be copied. Allowing the connection gives Claude read-only access to Stoky Matrix research.
 
 ## What you can ask
 
-- "Research NVIDIA in Matrix. Resolve the ticker, read its risk factors and competitive position sections, and cite the source for each claim."
-- "What did Matrix say about Apple on a date three months ago, and what changed by today? Compare the two snapshots and list the differences with their citations."
-- "What has happened recently for AMD? Show its changelog and recent event stream, and say which sources support each item."
+- "Which companies and industries are most exposed to AI data center power demand, and why?"
+- "What are AMD's biggest risks and latest results? Cite your sources."
+- "What moved in the market in the last 24 hours, and what are retail investors saying about TSLA and HOOD?"
 
 ## Tools
 

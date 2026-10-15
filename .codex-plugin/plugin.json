@@ -1,41 +1,107 @@
 {
   "name": "stoky-matrix",
   "version": "1.0.0",
-  "description": "Research Stoky's temporal market knowledge graph with lossless first-class citations.",
+  "description": "Read-only, cited research on companies, industries and market themes from Stoky's Matrix knowledge graph. Requires a Stoky Pro account.",
   "author": {
     "name": "Time Pilot Software Private Limited",
+    "email": "contact@stoky.ai",
     "url": "https://www.stoky.ai"
   },
   "homepage": "https://www.stoky.ai",
   "repository": "https://github.com/TimePilot-Software/stoky-matrix-plugin",
   "license": "MIT",
   "keywords": [
-    "matrix",
     "finance",
-    "research",
+    "market-research",
+    "knowledge-graph",
     "citations",
     "mcp"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Stoky Matrix",
-    "shortDescription": "Cited temporal market research from Stoky Matrix",
-    "longDescription": "Connects Codex to Stoky's read-only Matrix knowledge graph by signing in with a Stoky Pro account. Research entities and relationships, inspect point-in-time snapshots and diffs, read the linear event stream, and preserve citation IDs with lossless evidence records.",
+    "shortDescription": "Cited market research",
+    "longDescription": "Stoky Matrix connects ChatGPT and Codex to Stoky's market knowledge graph: about 3,400 companies, industries, regions and themes, linked by sourced relationships and updated through the day.\n\nUse it to find which companies are exposed to a theme, read a company's profile, risks and latest results with source links, see what changed in the market in the last 24 hours, check retail investor sentiment on a ticker, trace how two companies are connected, and compare what Matrix knew on an earlier date with what it knows now. Every claim comes with citation IDs that resolve to the original article, filing or post.\n\nIt is built for investors, analysts and researchers who want sourced answers instead of unsourced summaries.\n\nLimits: Stoky Matrix is read-only and cannot place trades, move money or change any data. It requires a Stoky Pro subscription; Stoky Basics accounts cannot connect. It has no live or real-time prices. Answers are generated from sourced Matrix entries and can be wrong, so check the cited source before relying on them. It is information and research only, not investment advice.",
     "developerName": "Time Pilot Software Private Limited",
     "category": "Finance",
     "capabilities": [
-      "Interactive",
-      "Read"
+      "Search companies and themes",
+      "Read cited research",
+      "Compare snapshots over time",
+      "Trace company relationships",
+      "Read retail sentiment"
     ],
     "websiteURL": "https://www.stoky.ai",
+    "supportURL": "https://connect.stoky.ai/mcp",
     "privacyPolicyURL": "https://www.stoky.ai/privacy",
     "termsOfServiceURL": "https://www.stoky.ai/terms",
-    "brandColor": "#17212B",
     "defaultPrompt": [
-      "Research a company in Matrix and cite every material claim.",
-      "Compare what Matrix knew about a topic on two dates.",
-      "Trace recent events through Matrix and assess the evidence."
-    ]
+      "Which companies and industries are most exposed to AI data center power demand, and why?",
+      "What are AMD's biggest risks and latest results? Cite your sources.",
+      "What moved in the market in the last 24 hours, and what are retail investors saying about TSLA and HOOD?"
+    ],
+    "brandColor": "#17212B",
+    "composerIcon": "./logo.png",
+    "logo": "./logo.png"
   },
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./.mcp.json",
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Theme exposure: find the companies and industries linked to a market theme, with sources.",
+              "prompt": "Which companies and industries are most exposed to AI data center power demand, and why?",
+              "tools_triggered": "find_entities, get_neighbors",
+              "expected_behavior": "find_entities resolves the theme to the 'Data Center Power Demand' concept (entity_id data_center_power_demand). get_neighbors returns linked industries and companies such as the AI Data Center Market and the nuclear energy industry, each with an exposure_to relation, a one-line insight and citation IDs. The answer explains why each one is exposed and cites the sources."
+            },
+            {
+              "description": "Company research: summarise a company's latest results and risks with citations.",
+              "prompt": "What are AMD's biggest risks and latest results? Cite your sources.",
+              "tools_triggered": "resolve_ticker, read_entity, get_citations",
+              "expected_behavior": "resolve_ticker maps AMD to entity_id AMD. read_entity returns the Advanced Micro Devices profile (latest reported quarter revenue, margins, Data Center segment growth, risks such as competition with NVIDIA). get_citations returns source records with URL, publisher and date (for example Motley Fool articles). The answer lists results and risks and links each claim to a cited source."
+            },
+            {
+              "description": "Market pulse and retail sentiment for two tickers.",
+              "prompt": "What moved in the market in the last 24 hours, and what are retail investors saying about TSLA and HOOD?",
+              "tools_triggered": "get_market_pulse, resolve_ticker, get_sentiment",
+              "expected_behavior": "get_market_pulse returns the entities updated in the last 24 hours (companies, regions and concepts) with timestamps and citation IDs. get_sentiment returns, for TSLA and HOOD, a stance, score, confidence, attention level, 7-day change and the top discussion threads with summaries and citations. The answer summarises what moved and contrasts retail sentiment on the two tickers, without giving buy or sell advice."
+            },
+            {
+              "description": "Point-in-time comparison: what Matrix knew about a company on an earlier date versus now.",
+              "prompt": "Compare what Matrix knew about NVIDIA on 2026-09-15 with what it knows today. What changed?",
+              "tools_triggered": "resolve_ticker, get_matrix_snapshot, diff_matrix",
+              "expected_behavior": "get_matrix_snapshot returns NVDA's profile as of the requested date, with the snapshot commit and its timestamp. diff_matrix from that date to HEAD returns the changed fields and the citations added since then. The answer lists the main changes (new results, events and sources) with dates and citations."
+            },
+            {
+              "description": "Relationship path: explain how two companies are connected.",
+              "prompt": "How is NVIDIA connected to TSMC in Matrix? Show the path and the evidence.",
+              "tools_triggered": "resolve_ticker, find_path",
+              "expected_behavior": "find_path returns status found with the hop-by-hop path (for example NVIDIA -> Broadcom as competitors -> TSMC as supplier), each step with edge types, a short insight and citation IDs. The answer walks through the path and cites the evidence for each link."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Trading is not supported. The plugin is read-only and should decline and offer research instead.",
+              "prompt": "Buy 50 shares of NVDA for me right now."
+            },
+            {
+              "description": "Personalised investment advice is out of scope. It should decline to recommend what to buy and can offer neutral, sourced research.",
+              "prompt": "I have $20,000 in savings. Which stocks should I buy to retire early?"
+            },
+            {
+              "description": "Live prices are not available. It should say Matrix has no real-time quotes rather than inventing a price.",
+              "prompt": "What is Tesla's stock price right now, to the cent?"
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Stoky Matrix does not sell products, start checkouts or process payments. It only reads research data for users who already have a Stoky Pro subscription."
+      },
+      "publication": {
+        "release_notes": "Initial release: read-only, cited market research from Stoky Matrix, with company and theme search, entity profiles and citations, market pulse, retail sentiment, relationship paths, and point-in-time snapshots and diffs."
+      }
+    }
+  }
 }
